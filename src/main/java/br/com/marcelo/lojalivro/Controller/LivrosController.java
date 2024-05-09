@@ -1,5 +1,6 @@
 package br.com.marcelo.lojalivro.Controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -7,32 +8,25 @@ import br.com.marcelo.lojalivro.Model.Livro;
 import br.com.marcelo.lojalivro.Repository.LivroRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RestController
 public class LivrosController {
     @Autowired
     LivroRepository livroRepository;
 
-    @GetMapping("livros")
-    public ModelAndView getLivros() {
-        ModelAndView mv = new ModelAndView("livros.list");
-        mv.addObject("livros", livroRepository.findAll());
-        return mv;
+    @GetMapping("/livros")
+    public List<Livro> list() {
+        return (List<Livro>) this.livroRepository.findAll();
 
     }
 
-    @GetMapping("addlivro")
-    public String getAddLivro() {
-        return "livro-add";
-    }
+    @PostMapping("/livros")
+    public Livro create(Livro livro) {
+        return this.livroRepository.save(livro);
 
-    @PostMapping("/addlivro")
-    public String postAddLivro(Livro livro) {
-        livroRepository.save(livro);
-
-        return "redirect:/livro";
     }
 
 }

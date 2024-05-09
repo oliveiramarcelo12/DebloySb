@@ -13,6 +13,18 @@ public class Livro {
     private int id;
     private String titulo;
     private String autor;
+    //construtor 
+    public Livro() {
+
+        super();
+    }
+    
+    public Livro(int id, String titulo, String autor) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+    }
+
     public int getId() {
         return id;
     }
