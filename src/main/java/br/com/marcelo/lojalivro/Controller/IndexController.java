@@ -2,18 +2,21 @@ package br.com.marcelo.lojalivro.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 
 
 @Controller
 public class IndexController {
     @GetMapping("/")
-    public String getIndex() {
-        return  "index";
+    public ModelAndView getIndex() {
+        ModelAndView mv = new ModelAndView("index");
+        return  mv;
     }
     @GetMapping("/home")
-    public String getHome() {
-        return "index";
+    public ModelAndView getHome() {
+        ModelAndView mv = new ModelAndView("index");
+        return  mv;
     }
     
     
