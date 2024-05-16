@@ -9,7 +9,9 @@ import br.com.marcelo.lojalivro.Repository.LivroRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RestController
@@ -17,15 +19,21 @@ public class LivrosController {
     @Autowired
     LivroRepository livroRepository;
 
-    @GetMapping("/livros")
-    public List<Livro> list() {
-        return (List<Livro>) this.livroRepository.findAll();
+    @GetMapping("/livros-list")
+    public ModelAndView list() {
+        ModelAndView mv = new ModelAndView("livros-list");
+        mv.addObject("livros", livroRepository.findAll());
+        return mv;
 
     }
 
-    @PostMapping("/livros")
-    public Livro create(Livro livro) {
-        return this.livroRepository.save(livro);
+    @PostMapping("/livros-add")
+    public ModelAndView create(@RequestBody Livro livro) {
+        ModelAndView mv = new ModelAndView("livros-add");
+        livroRepository.save(livro);
+        mv.setViewName("redirect:livros-list");
+        return mv;
+       
 
     }
 
